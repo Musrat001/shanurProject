@@ -7,8 +7,8 @@ const Hero = () => {
       id="home"
       className="relative min-h-screen overflow-hidden bg-[#f5f3ee] px-6 pt-32 md:px-12"
     >
+      {" "}
       <div className="mx-auto max-w-[1440px]">
-
         {/* Intro Label */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -25,34 +25,31 @@ const Hero = () => {
 
         {/* Hero Content */}
         <div className="grid items-center gap-12 lg:grid-cols-2">
-
           {/* Left Content */}
           <div>
-
-            <motion.h1
-              initial={{ opacity: 0, y: 60 }}
+            {/* Tanveer Digital Hub Logo */}
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.9 }}
-              className="text-6xl font-black leading-[0.95] tracking-tighter text-black sm:text-7xl md:text-8xl"
+              className="flex justify-start"
             >
-              WE MAKE
-              <br />
+              <img
+                src="/tanveer-digital-hub.jpeg"
+                alt="Tanveer Digital Hub - Connect, Collaborate, Grow"
+                className="h-auto w-full max-w-[480px] object-contain mix-blend-multiply"
+              />
+            </motion.div>
 
-              BRANDS
-              <br />
-
-              <span className="text-orange-500">MATTER.</span>
-            </motion.h1>
-
+            {/* Description */}
             <motion.p
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
-              className="mt-8 max-w-lg text-base leading-7 text-gray-600 md:text-lg"
+              className="mt-6 max-w-lg text-base leading-7 text-gray-600 md:text-lg"
             >
-              We create meaningful digital experiences that help
-              brands connect with people, build identities and
-              stand out in a crowded world.
+              We create meaningful digital experiences that help brands connect
+              with people, build identities and stand out in a crowded world.
             </motion.p>
 
             {/* CTA Buttons */}
@@ -79,7 +76,7 @@ const Hero = () => {
             </motion.div>
           </div>
 
-          {/* Right Visual */}
+          {/* Right Visual - Existing Image */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -87,7 +84,6 @@ const Hero = () => {
             className="relative"
           >
             <div className="relative h-[350px] overflow-hidden rounded-[2rem] bg-orange-200 sm:h-[450px] lg:h-[550px]">
-
               <img
                 src="https://images.unsplash.com/photo-1531058020387-3be344556be6"
                 alt="Creative visual"
@@ -125,11 +121,9 @@ const Hero = () => {
 
           <ArrowDown size={20} className="animate-bounce text-orange-500" />
         </div>
-
       </div>
     </section>
   );
 };
 
 export default Hero;
-
