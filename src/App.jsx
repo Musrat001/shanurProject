@@ -16,12 +16,14 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import FAQ from "./Components/FAQ";
 import WhatsAppButton from "./Components/WhatsAppButton";
+import CustomCursor from "./Components/CustomCursor";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
 
   return (
     <>
+    <CustomCursor/>
       <AnimatePresence>
         {isLoading && (
           <Preloader

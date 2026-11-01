@@ -61,7 +61,7 @@ const Contact = () => {
       id="contact"
       className="overflow-hidden bg-[#111111] px-6 py-24 text-white md:px-12 md:py-32"
     >
-      <div className="mx-auto max-w-[1440px]">
+      <div className="mx-auto max-w-360">
         {/* Section Heading */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
