@@ -14,7 +14,7 @@ const navLinks = [
 
 return ( <header className="fixed left-0 top-0 z-50 w-full px-4 pt-5 sm:px-6 md:px-10"> <nav
      className="
-       relative mx-auto flex max-w-[1440px] items-center
+       relative mx-auto flex max-w-360 items-center
        justify-between rounded-full
        border border-white/40
        bg-white/80 px-6 py-3

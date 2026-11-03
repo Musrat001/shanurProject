@@ -3,6 +3,7 @@ import axios from "axios";
 import { motion } from "framer-motion";
 import { ArrowUpRight, Mail, Phone, MapPin } from "lucide-react";
 import { toast } from "react-toastify";
+import axiosInstance from "../Api/AxiosInstance";
 
 const initialFormData = {
   name: "",
@@ -14,35 +15,56 @@ const initialFormData = {
 };
 
 const Contact = () => {
+  // console.log("axios instance: ", axiosInstance);
+  
   const [formData, setFormData] = useState(initialFormData);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [contact, setcontact] = useState(null);
+  const [userType, setUserType] = useState("");
+  const [subject, setSubject] = useState("");
+  const [message, setMessage] = useState("");
 
   // Handle input changes
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  // const handleChange = (e) => {
+  //   const { name, value } = e.target;
 
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
+  //   setFormData((prev) => ({
+  //     ...prev,
+  //     [name]: value,
+  //   }));
+  // };
+
 
   // Submit contact form
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // console.log("axios instance: ", axiosInstance);
+    const formObj = {
+      name,
+      email,
+      phone: contact,
+      subject,
+      userType,
+      message
+
+    }
+    console.log(formObj);
+    
 
     try {
       setIsSubmitting(true);
 
-      const response = await axios.post(
-        `${import.meta.env.VITE_API_URL}/api/v1/users/create`,
-        formData,
+      const response = await axiosInstance.post(
+        `/api/v1/users/brand/create`,
+        formObj,
       );
 
       if (response.data.success) {
         toast.success("Your message has been submitted successfully!");
 
-        setFormData(initialFormData);
+        // setFormData(initialFormData);
       }
     } catch (error) {
       console.error("Contact form error:", error);
@@ -53,6 +75,7 @@ const Contact = () => {
       );
     } finally {
       setIsSubmitting(false);
+
     }
   };
 
@@ -196,8 +219,8 @@ const Contact = () => {
                     id="name"
                     type="text"
                     name="name"
-                    value={formData.name}
-                    onChange={handleChange}
+                    value={name}
+                    onChange={(e)=>(setName(e.target.value))}
                     placeholder="Your name"
                     autoComplete="name"
                     required
@@ -219,8 +242,8 @@ const Contact = () => {
                     id="email"
                     type="email"
                     name="email"
-                    value={formData.email}
-                    onChange={handleChange}
+                    value={email}
+                    onChange={(e)=>(setEmail(e.target.value))}
                     placeholder="your@email.com"
                     autoComplete="email"
                     required
@@ -242,8 +265,8 @@ const Contact = () => {
                     id="phone"
                     type="tel"
                     name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
+                    value={contact}
+                    onChange={(e)=>(setcontact(e.target.value))}
                     placeholder="+91 98765 43210"
                     autoComplete="tel"
                     required
@@ -264,8 +287,8 @@ const Contact = () => {
                   <select
                     id="userType"
                     name="userType"
-                    value={formData.userType}
-                    onChange={handleChange}
+                    value={userType}
+                    onChange={(e)=>(setUserType(e.target.value))}
                     required
                     className="w-full rounded-xl border border-white/10 bg-[#252525] px-4 py-4 text-sm text-white outline-none transition-all focus:border-orange-500"
                   >
@@ -292,8 +315,8 @@ const Contact = () => {
                     id="subject"
                     type="text"
                     name="subject"
-                    value={formData.subject}
-                    onChange={handleChange}
+                    value={subject}
+                    onChange={(e)=>(setSubject(e.target.value))}
                     placeholder="How can we help?"
                     required
                     maxLength={150}
@@ -314,8 +337,8 @@ const Contact = () => {
                 <textarea
                   id="message"
                   name="message"
-                  value={formData.message}
-                  onChange={handleChange}
+                  value={message}
+                  onChange={(e)=>(setMessage(e.target.value))}
                   placeholder="Tell us about your project..."
                   rows={5}
                   required
