@@ -1,126 +1,108 @@
 import { motion } from "framer-motion";
-import { ArrowDown, ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Sparkles } from "lucide-react";
 
 const Hero = () => {
   return (
     <section
       id="home"
-      className="relative min-h-screen overflow-hidden bg-[#f5f3ee] px-6 pt-32 md:px-12"
+      className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#f5f0e9] px-5 py-28 md:px-10"
     >
-      {" "}
-      <div className="mx-auto max-w-[1440px]">
+      {/* Background Image */}
+      <div className="absolute inset-0">
+        <img
+          src="https://images.unsplash.com/photo-1455390582262-044cdead277a"
+          alt=""
+          className="h-full w-full object-cover"
+        />
+
+        {/* Background Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#fff4d9]/85 via-[#ffe5dc]/85 to-[#f8d9d9]/85" />
+
+        {/* Additional Overlay */}
+        <div className="absolute inset-0 bg-white/20" />
+      </div>
+
+      {/* Decorative Elements */}
+      <div className="pointer-events-none absolute left-[15%] top-[25%] h-2 w-2 rounded-full bg-orange-400" />
+      <div className="pointer-events-none absolute right-[20%] top-[35%] h-2 w-2 rounded-full bg-orange-500" />
+      <div className="pointer-events-none absolute bottom-[25%] left-[25%] h-1.5 w-1.5 rounded-full bg-orange-400" />
+
+      {/* Main Content */}
+      <div className="relative z-10 mx-auto w-full max-w-[1250px] text-center">
         {/* Intro Label */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
-          className="mb-8 flex items-center gap-3"
+          className="mb-8"
         >
-          <span className="h-2 w-2 rounded-full bg-orange-500"></span>
-
-          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-600">
+          <p className="text-xs font-medium uppercase tracking-[0.35em] text-gray-600 sm:text-sm md:text-base">
             Creative Digital Agency
           </p>
         </motion.div>
 
-        {/* Hero Content */}
-        <div className="grid items-center gap-12 lg:grid-cols-2">
-          {/* Left Content */}
-          <div>
-            {/* Tanveer Digital Hub Logo */}
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.9 }}
-              className="flex justify-start"
-            >
-              <img
-                src="/tanveer-digital-hub.jpeg"
-                alt="Tanveer Digital Hub - Connect, Collaborate, Grow"
-                className="h-auto w-full max-w-[480px] object-contain mix-blend-multiply"
-              />
-            </motion.div>
+        {/* Main Heading */}
+        <motion.div
+          initial={{ opacity: 0, y: 35 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, delay: 0.2 }}
+          className="mb-7"
+        >
+          <h1 className="text-4xl font-black leading-[1.15] tracking-tight text-[#111111] sm:text-5xl md:text-6xl lg:text-8xl">
+            We Build Timeless
+            <span className="my-2 block bg-gradient-to-r from-orange-400 to-[#ff5733] bg-clip-text text-transparent">
+              Digital Experiences
+            </span>
+            That People Remember
+          </h1>
+        </motion.div>
 
-            {/* Description */}
-            <motion.p
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-              className="mt-6 max-w-lg text-base leading-7 text-gray-600 md:text-lg"
-            >
-              We create meaningful digital experiences that help brands connect
-              with people, build identities and stand out in a crowded world.
-            </motion.p>
+        {/* Description */}
+        <motion.p
+          initial={{ opacity: 0, y: 25 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="mx-auto max-w-2xl text-base leading-7 text-gray-600 sm:text-lg md:text-xl md:leading-9"
+        >
+          We combine creativity, technology, and strategy to craft meaningful
+          digital experiences that help businesses grow, connect with people,
+          and stand out in the digital world.
+        </motion.p>
 
-            {/* CTA Buttons */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.5 }}
-              className="mt-10 flex flex-wrap items-center gap-4"
-            >
-              <a
-                href="#work"
-                className="flex items-center gap-3 rounded-full bg-black px-7 py-4 text-sm font-semibold text-white transition-all duration-300 hover:bg-orange-500"
-              >
-                Explore Our Work
-                <ArrowUpRight size={18} />
-              </a>
-
-              <a
-                href="#contact"
-                className="rounded-full border border-black px-7 py-4 text-sm font-semibold text-black transition-all duration-300 hover:bg-black hover:text-white"
-              >
-                Let's Talk
-              </a>
-            </motion.div>
-          </div>
-
-          {/* Right Visual - Existing Image */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, delay: 0.3 }}
-            className="relative"
+        {/* CTA Button */}
+        <motion.div
+          initial={{ opacity: 0, y: 25 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          className="mt-10 flex justify-center"
+        >
+          <a
+            href="#work"
+            className="group flex items-center gap-3 rounded-full bg-gradient-to-r from-orange-400 to-[#ff5733] px-10 py-5 text-base font-semibold text-white shadow-lg shadow-orange-500/20 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-orange-500/30"
           >
-            <div className="relative h-[350px] overflow-hidden rounded-[2rem] bg-orange-200 sm:h-[450px] lg:h-[550px]">
-              <img
-                src="https://images.unsplash.com/photo-1531058020387-3be344556be6"
-                alt="Creative visual"
-                className="h-full w-full object-cover"
-              />
+            <Sparkles
+              size={21}
+              className="transition-transform duration-300 group-hover:rotate-12"
+            />
+            Explore Our Work
+            <ArrowUpRight
+              size={19}
+              className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
+            />
+          </a>
+        </motion.div>
 
-              {/* Overlay */}
-              <div className="absolute inset-0 bg-black/10"></div>
-
-              <div className="absolute bottom-6 left-6 rounded-full bg-white px-5 py-3">
-                <p className="text-xs font-bold uppercase tracking-widest text-black">
-                  Think. Create. Inspire.
-                </p>
-              </div>
-            </div>
-
-            {/* Decorative Circle */}
-            <div className="absolute -right-5 -top-5 flex h-24 w-24 items-center justify-center rounded-full bg-orange-500 text-white shadow-xl sm:h-32 sm:w-32">
-              <p className="text-center text-xs font-bold uppercase leading-5 tracking-wider">
-                Creative
-                <br />
-                Minds
-                <br />
-                Club
-              </p>
-            </div>
-          </motion.div>
-        </div>
-
-        {/* Bottom Indicator */}
-        <div className="mt-16 flex items-center justify-between border-t border-gray-300 py-6">
-          <p className="text-xs font-medium uppercase tracking-widest text-gray-500">
-            Scroll to explore
+        {/* Bottom Tagline */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 0.9 }}
+          className="mt-16"
+        >
+          <p className="text-xs font-medium uppercase tracking-[0.3em] text-gray-500">
+            Think · Create · Innovate · Inspire
           </p>
-
-          <ArrowDown size={20} className="animate-bounce text-orange-500" />
-        </div>
+        </motion.div>
       </div>
     </section>
   );

@@ -40,7 +40,6 @@ const Preloader = ({ onComplete }) => {
       }}
       className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#111111] px-6 text-white"
     >
-
       {/* Logo */}
       <motion.h1
         initial={{ opacity: 0, y: 30 }}
@@ -48,7 +47,7 @@ const Preloader = ({ onComplete }) => {
         transition={{ duration: 0.8 }}
         className="text-5xl font-black tracking-tighter sm:text-7xl md:text-8xl"
       >
-        THE HYPE<span className="text-orange-500">.</span>
+        TANVEER DIGITAL HUB<span className="text-orange-500">.</span>
       </motion.h1>
 
       {/* Tagline */}
@@ -58,15 +57,23 @@ const Preloader = ({ onComplete }) => {
         transition={{ delay: 0.4, duration: 0.8 }}
         className="mt-5 text-xs font-medium uppercase tracking-[0.3em] text-gray-400"
       >
-        Creative Digital Agency
+        <ul className="flex flex- gap-2 rounded-lg bg-amber-400 p-4 text-center font-semibold text-gray-900 shadow-md">
+          <li className="cursor-pointer rounded-md px-4 py-2 transition hover:bg-amber-500">
+            Create
+          </li>
+          <li className="cursor-pointer rounded-md px-4 py-2 transition hover:bg-amber-500">
+            Collaborate
+          </li>
+          <li className="cursor-pointer rounded-md px-4 py-2 transition hover:bg-amber-500">
+            Grow
+          </li>
+        </ul>
       </motion.p>
 
       {/* Loading Section */}
       <div className="mt-20 w-full max-w-md">
-
         {/* Percentage */}
         <div className="mb-4 flex items-center justify-between">
-
           <p className="text-xs uppercase tracking-widest text-gray-500">
             Loading Experience
           </p>
@@ -74,26 +81,21 @@ const Preloader = ({ onComplete }) => {
           <p className="text-sm font-bold text-orange-500">
             {Math.round(progress)}%
           </p>
-
         </div>
 
         {/* Progress Bar */}
         <div className="h-[3px] w-full overflow-hidden bg-white/10">
-
           <motion.div
             className="h-full bg-orange-500"
             style={{ width: `${progress}%` }}
           />
-
         </div>
-
       </div>
 
       {/* Bottom Text */}
       <p className="absolute bottom-10 text-[10px] uppercase tracking-[0.3em] text-gray-600">
         Think. Create. Inspire.
       </p>
-
     </motion.div>
   );
 };

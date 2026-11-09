@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Plus, Minus, ArrowUpRight } from "lucide-react";
@@ -52,147 +51,146 @@ const FAQ = () => {
   return (
     <section
       id="faq"
-      className="bg-[#f5f3ee] px-6 py-24 md:px-12 md:py-32"
+      className="bg-[#fffaf5] px-5 py-20 sm:px-8 md:px-12 md:py-24"
     >
-      <div className="mx-auto max-w-[1440px]">
-
+      <div className="mx-auto max-w-[1100px]">
         {/* Section Heading */}
-        <div className="mb-16 grid gap-8 lg:grid-cols-2 lg:items-end">
-
-          <div>
-            <p className="mb-5 flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.25em] text-gray-600">
-              <span className="h-2 w-2 rounded-full bg-orange-500" />
-              Got Questions?
-            </p>
-
-            <h2 className="text-5xl font-black leading-[0.95] tracking-tighter text-black sm:text-6xl md:text-8xl">
-              FREQUENTLY
-              <br />
-              ASKED
-              <br />
-              <span className="text-orange-500">QUESTIONS.</span>
-            </h2>
-          </div>
-
-          <p className="max-w-md text-base leading-8 text-gray-600 md:text-lg">
-            Everything you need to know about our services,
-            process and how we can help your brand grow.
-            Can't find your answer? Get in touch with us.
+        <motion.div
+          initial={{ opacity: 0, y: 25 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="mb-12 text-center"
+        >
+          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.3em] text-orange-500">
+            Got Questions?
           </p>
 
-        </div>
+          <h2 className="text-4xl font-black tracking-tight text-[#202020] sm:text-5xl md:text-6xl">
+            Frequently Asked <span className="text-orange-500">Questions</span>
+          </h2>
+
+          <div className="mx-auto mt-5 h-[4px] w-20 rounded-full bg-gradient-to-r from-orange-400 to-[#ff5733]" />
+
+          <p className="mx-auto mt-5 max-w-xl text-sm leading-7 text-gray-600 sm:text-base">
+            Everything you need to know about our services, process and how we
+            can help your brand grow.
+          </p>
+        </motion.div>
 
         {/* FAQ Accordion */}
-        <div className="mx-auto max-w-4xl">
-
+        <div className="mx-auto max-w-[850px] space-y-3">
           {faqs.map((faq, index) => {
             const isOpen = activeIndex === index;
 
             return (
               <motion.div
                 key={faq.id}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{
-                  duration: 0.5,
-                  delay: index * 0.08,
+                  duration: 0.45,
+                  delay: index * 0.06,
                 }}
-                className="mb-4 overflow-hidden rounded-2xl border border-gray-200 bg-white"
+                className={`overflow-hidden rounded-xl border transition-all duration-300 ${
+                  isOpen
+                    ? "border-orange-200 bg-white shadow-md shadow-orange-100/50"
+                    : "border-gray-200 bg-white hover:border-orange-200"
+                }`}
               >
-
                 {/* Question */}
                 <button
                   type="button"
                   onClick={() => handleToggle(index)}
                   aria-expanded={isOpen}
                   aria-controls={`faq-answer-${faq.id}`}
-                  className="flex w-full items-center justify-between gap-5 p-5 text-left transition-colors hover:bg-gray-50 sm:p-7"
+                  className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left sm:px-6"
                 >
-
-                  <div className="flex items-start gap-4">
-
-                    <span className="pt-1 text-sm font-bold text-orange-500">
+                  <div className="flex items-center gap-4">
+                    {/* Number */}
+                    <span
+                      className={`text-xs font-bold transition-colors duration-300 ${
+                        isOpen ? "text-orange-500" : "text-gray-400"
+                      }`}
+                    >
                       0{faq.id}
                     </span>
 
-                    <h3 className="text-base font-bold text-black sm:text-lg md:text-xl">
+                    {/* Question Text */}
+                    <h3 className="text-sm font-semibold text-[#252525] sm:text-base">
                       {faq.question}
                     </h3>
-
                   </div>
 
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-black text-white transition-colors duration-300 group-hover:bg-orange-500">
-
-                    {isOpen ? (
-                      <Minus size={18} />
-                    ) : (
-                      <Plus size={18} />
-                    )}
-
+                  {/* Toggle Icon */}
+                  <span
+                    className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full transition-all duration-300 ${
+                      isOpen
+                        ? "bg-orange-500 text-white"
+                        : "bg-gray-100 text-gray-700"
+                    }`}
+                  >
+                    {isOpen ? <Minus size={16} /> : <Plus size={16} />}
                   </span>
-
                 </button>
 
                 {/* Answer */}
                 <AnimatePresence initial={false}>
-
                   {isOpen && (
                     <motion.div
                       id={`faq-answer-${faq.id}`}
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: "auto", opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3 }}
+                      transition={{ duration: 0.25 }}
                       className="overflow-hidden"
                     >
-
-                      <div className="border-t border-gray-100 px-5 pb-6 pt-5 sm:px-7 sm:pl-16">
-
-                        <p className="text-sm leading-8 text-gray-600 md:text-base">
+                      <div className="border-t border-gray-100 px-5 pb-4 pt-3 sm:pl-[60px] sm:pr-6">
+                        <p className="text-sm leading-7 text-gray-600">
                           {faq.answer}
                         </p>
-
                       </div>
-
                     </motion.div>
                   )}
-
                 </AnimatePresence>
-
               </motion.div>
             );
           })}
-
         </div>
 
         {/* Contact CTA */}
-        <div className="mt-16 flex flex-col items-center justify-between gap-6 rounded-3xl bg-[#111111] p-8 text-center sm:p-12 md:flex-row md:text-left">
-
-          <div>
-            <h3 className="text-2xl font-bold text-white sm:text-3xl">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mx-auto mt-12 flex max-w-[850px] flex-col items-center justify-between gap-5 rounded-2xl bg-[#202020] px-6 py-6 sm:flex-row sm:px-8"
+        >
+          <div className="text-center sm:text-left">
+            <h3 className="text-lg font-bold text-white sm:text-xl">
               Still have questions?
             </h3>
 
-            <p className="mt-3 text-sm text-gray-400">
+            <p className="mt-1 text-sm text-gray-400">
               Let's discuss your ideas and find the right solution.
             </p>
           </div>
 
           <a
             href="#contact"
-            className="flex shrink-0 items-center gap-3 rounded-full bg-orange-500 px-7 py-4 text-sm font-bold text-white transition-all duration-300 hover:bg-orange-600"
+            className="group flex shrink-0 items-center gap-2 rounded-full bg-gradient-to-r from-orange-400 to-[#ff5733] px-6 py-3 text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-orange-500/20"
           >
             Contact Us
-            <ArrowUpRight size={19} />
+            <ArrowUpRight
+              size={17}
+              className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
+            />
           </a>
-
-        </div>
-
+        </motion.div>
       </div>
     </section>
   );
 };
 
 export default FAQ;
-

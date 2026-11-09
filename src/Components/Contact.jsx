@@ -1,7 +1,6 @@
 import { useState } from "react";
-import axios from "axios";
 import { motion } from "framer-motion";
-import { ArrowUpRight, Mail, Phone, MapPin } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { toast } from "react-toastify";
 import axiosInstance from "../Api/AxiosInstance";
 
@@ -9,62 +8,53 @@ const initialFormData = {
   name: "",
   email: "",
   phone: "",
-  userType: "",
   subject: "",
   message: "",
 };
 
 const Contact = () => {
-  // console.log("axios instance: ", axiosInstance);
-  
   const [formData, setFormData] = useState(initialFormData);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [contact, setcontact] = useState(null);
-  const [userType, setUserType] = useState("");
-  const [subject, setSubject] = useState("");
-  const [message, setMessage] = useState("");
 
-  // Handle input changes
-  // const handleChange = (e) => {
-  //   const { name, value } = e.target;
+  // Handle Input Changes
+  const handleChange = (e) => {
+    const { name, value } = e.target;
 
-  //   setFormData((prev) => ({
-  //     ...prev,
-  //     [name]: value,
-  //   }));
-  // };
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
-
-  // Submit contact form
+  // Handle Form Submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log("axios instance: ", axiosInstance);
-    const formObj = {
-      name,
-      email,
-      phone: contact,
-      subject,
-      userType,
-      message
 
-    }
-    console.log(formObj);
-    
+    const { name, email, phone, subject, message, userType } = formData;
+
+    // if (
+    //   !name.trim() ||
+    //   !email.trim() ||
+    //   !phone.trim() ||
+    //   !subject.trim() ||
+    //   !message.trim() ||
+    //   !userType.trim()
+    // ) {
+    //   toast.error("All fields are required");
+    //   return;
+    // }
 
     try {
       setIsSubmitting(true);
 
-      const response = await axiosInstance.post(
-        `/api/v1/users/brand/create`,
-        formObj,
-      );
+      const response = await axiosInstance.post("/api/v1/users/brand/create", {
+        ...formData,
+        userType: "Brand",
+      });
 
       if (response.data.success) {
         toast.success("Your message has been submitted successfully!");
-
-        // setFormData(initialFormData);
+        setFormData(initialFormData);
       }
     } catch (error) {
       console.error("Contact form error:", error);
@@ -75,291 +65,203 @@ const Contact = () => {
       );
     } finally {
       setIsSubmitting(false);
-
     }
   };
 
   return (
     <section
       id="contact"
-      className="overflow-hidden bg-[#111111] px-6 py-24 text-white md:px-12 md:py-32"
+      className="relative overflow-hidden bg-[#fffaf5] px-5 py-20 sm:px-8 md:px-12 md:py-28"
     >
-      <div className="mx-auto max-w-360">
+      <div className="mx-auto max-w-[1100px]">
         {/* Section Heading */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          className="mb-16"
+          className="mb-14 text-center md:mb-16"
         >
-          <p className="mb-5 flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.25em] text-orange-500">
-            <span className="h-2 w-2 rounded-full bg-orange-500" />
-            Get In Touch
-          </p>
-
-          <h2 className="text-5xl font-black leading-none tracking-tighter sm:text-6xl md:text-8xl">
-            LET'S CREATE
-            <br />
-            <span className="text-orange-500">SOMETHING GREAT.</span>
+          <h2 className="text-4xl font-black tracking-tight text-[#202020] sm:text-5xl md:text-6xl">
+            Let's Work Together
           </h2>
+
+          {/* Gradient Divider */}
+          <div className="mx-auto mt-5 h-[5px] w-[120px] rounded-full bg-gradient-to-r from-orange-400 to-[#ff5733]" />
+
+          <p className="mt-8 text-base text-gray-600 sm:text-lg md:text-[23px]">
+            Send us a message and we'll get back to you shortly.
+          </p>
         </motion.div>
 
-        {/* Main Content */}
-        <div className="grid gap-16 lg:grid-cols-2">
-          {/* Left Side */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-          >
-            <h3 className="text-3xl font-bold">Have a project in mind?</h3>
-
-            <p className="mt-5 max-w-md leading-8 text-gray-400">
-              We'd love to hear about your ideas. Tell us what you're planning,
-              and let's create something meaningful together.
-            </p>
-
-            {/* Contact Details */}
-            <div className="mt-12 space-y-8">
-              <div className="flex items-center gap-5">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-orange-500/10 text-orange-500">
-                  <Mail size={22} />
-                </div>
-
-                <div>
-                  <p className="text-xs uppercase tracking-widest text-gray-500">
-                    Email Us
-                  </p>
-
-                  <a
-                    href="mailto:hello@example.com"
-                    className="mt-1 block break-all font-medium transition-colors hover:text-orange-500"
-                  >
-                    hello@example.com
-                  </a>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-5">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-orange-500/10 text-orange-500">
-                  <Phone size={22} />
-                </div>
-
-                <div>
-                  <p className="text-xs uppercase tracking-widest text-gray-500">
-                    Call Us
-                  </p>
-
-                  <a
-                    href="tel:+919876543210"
-                    className="mt-1 block font-medium transition-colors hover:text-orange-500"
-                  >
-                    +91 98765 43210
-                  </a>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-5">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-orange-500/10 text-orange-500">
-                  <MapPin size={22} />
-                </div>
-
-                <div>
-                  <p className="text-xs uppercase tracking-widest text-gray-500">
-                    Location
-                  </p>
-
-                  <p className="mt-1 font-medium">New Delhi, India</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Social Links */}
-            <div className="mt-14">
-              <p className="mb-5 text-xs font-semibold uppercase tracking-widest text-gray-500">
-                Follow Us
-              </p>
-
-              <div className="flex flex-wrap gap-3">
-                {["Instagram", "LinkedIn", "Facebook"].map((social) => (
-                  <a
-                    key={social}
-                    href="#"
-                    className="rounded-full border border-white/20 px-5 py-3 text-sm transition-all duration-300 hover:border-orange-500 hover:bg-orange-500"
-                  >
-                    {social}
-                  </a>
-                ))}
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Right Side - Contact Form */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-            className="rounded-3xl border border-white/10 bg-[#1b1b1b] p-6 sm:p-10"
-          >
-            <form onSubmit={handleSubmit}>
-              <div className="grid gap-6 sm:grid-cols-2">
-                {/* Name */}
-                <div>
-                  <label
-                    htmlFor="name"
-                    className="mb-3 block text-sm font-medium"
-                  >
-                    Full Name *
-                  </label>
-
-                  <input
-                    id="name"
-                    type="text"
-                    name="name"
-                    value={name}
-                    onChange={(e)=>(setName(e.target.value))}
-                    placeholder="Your name"
-                    autoComplete="name"
-                    required
-                    maxLength={100}
-                    className="w-full rounded-xl border border-white/10 bg-[#252525] px-4 py-4 text-sm outline-none transition-all placeholder:text-gray-500 focus:border-orange-500"
-                  />
-                </div>
-
-                {/* Email */}
-                <div>
-                  <label
-                    htmlFor="email"
-                    className="mb-3 block text-sm font-medium"
-                  >
-                    Email Address *
-                  </label>
-
-                  <input
-                    id="email"
-                    type="email"
-                    name="email"
-                    value={email}
-                    onChange={(e)=>(setEmail(e.target.value))}
-                    placeholder="your@email.com"
-                    autoComplete="email"
-                    required
-                    maxLength={254}
-                    className="w-full rounded-xl border border-white/10 bg-[#252525] px-4 py-4 text-sm outline-none transition-all placeholder:text-gray-500 focus:border-orange-500"
-                  />
-                </div>
-
-                {/* Phone */}
-                <div>
-                  <label
-                    htmlFor="phone"
-                    className="mb-3 block text-sm font-medium"
-                  >
-                    Phone Number *
-                  </label>
-
-                  <input
-                    id="phone"
-                    type="tel"
-                    name="phone"
-                    value={contact}
-                    onChange={(e)=>(setcontact(e.target.value))}
-                    placeholder="+91 98765 43210"
-                    autoComplete="tel"
-                    required
-                    maxLength={20}
-                    className="w-full rounded-xl border border-white/10 bg-[#252525] px-4 py-4 text-sm outline-none transition-all placeholder:text-gray-500 focus:border-orange-500"
-                  />
-                </div>
-
-                {/* User Type - New Field */}
-                <div>
-                  <label
-                    htmlFor="userType"
-                    className="mb-3 block text-sm font-medium"
-                  >
-                    I am a *
-                  </label>
-
-                  <select
-                    id="userType"
-                    name="userType"
-                    value={userType}
-                    onChange={(e)=>(setUserType(e.target.value))}
-                    required
-                    className="w-full rounded-xl border border-white/10 bg-[#252525] px-4 py-4 text-sm text-white outline-none transition-all focus:border-orange-500"
-                  >
-                    <option value="" disabled>
-                      Select your role
-                    </option>
-
-                    <option value="Brand">Brand</option>
-
-                    <option value="Influencer">Influencer</option>
-                  </select>
-                </div>
-
-                {/* Subject */}
-                <div>
-                  <label
-                    htmlFor="subject"
-                    className="mb-3 block text-sm font-medium"
-                  >
-                    Subject *
-                  </label>
-
-                  <input
-                    id="subject"
-                    type="text"
-                    name="subject"
-                    value={subject}
-                    onChange={(e)=>(setSubject(e.target.value))}
-                    placeholder="How can we help?"
-                    required
-                    maxLength={150}
-                    className="w-full rounded-xl border border-white/10 bg-[#252525] px-4 py-4 text-sm outline-none transition-all placeholder:text-gray-500 focus:border-orange-500"
-                  />
-                </div>
-              </div>
-
-              {/* Message */}
-              <div className="mt-6">
+        {/* Contact Form Card */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="rounded-[28px] border border-[#eee7df] bg-white p-6 shadow-[0_12px_35px_rgba(0,0,0,0.05)] sm:p-10 md:p-14"
+        >
+          <form onSubmit={handleSubmit}>
+            {/* Input Grid */}
+            <div className="grid grid-cols-1 gap-x-8 gap-y-8 sm:grid-cols-2">
+              {/* Name */}
+              <div>
                 <label
-                  htmlFor="message"
-                  className="mb-3 block text-sm font-medium"
+                  htmlFor="name"
+                  className="mb-3 block text-lg font-semibold text-[#252525]"
                 >
-                  Your Message *
+                  Name <span className="text-[#ff5733">*</span>
                 </label>
 
-                <textarea
-                  id="message"
-                  name="message"
-                  value={message}
-                  onChange={(e)=>(setMessage(e.target.value))}
-                  placeholder="Tell us about your project..."
-                  rows={5}
+                <input
+                  id="name"
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  placeholder=""
+                  autoComplete="name"
                   required
-                  maxLength={5000}
-                  className="w-full resize-none rounded-xl border border-white/10 bg-[#252525] px-4 py-4 text-sm outline-none transition-all placeholder:text-gray-500 focus:border-orange-500"
+                  maxLength={100}
+                  className="w-full rounded-2xl border-2 border-gray-200 bg-white px-5 py-4 text-base text-gray-900 outline-none transition-all duration-300 focus:border-orange-400 focus:ring-4 focus:ring-orange-100"
                 />
               </div>
 
-              {/* Submit Button */}
+              {/* Email */}
+              <div>
+                <label
+                  htmlFor="email"
+                  className="mb-3 block text-lg font-semibold text-[#252525]"
+                >
+                  Email <span className="text-[#ff5733">*</span>
+                </label>
+
+                <input
+                  id="email"
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder=""
+                  autoComplete="email"
+                  required
+                  maxLength={254}
+                  className="w-full rounded-2xl border-2 border-gray-200 bg-white px-5 py-4 text-base text-gray-900 outline-none transition-all duration-300 focus:border-orange-400 focus:ring-4 focus:ring-orange-100"
+                />
+              </div>
+
+              {/* Phone */}
+              <div>
+                <label
+                  htmlFor="phone"
+                  className="mb-3 block text-lg font-semibold text-[#252525]"
+                >
+                  Phone <span className="text-[#ff5733">*</span>
+                </label>
+
+                <input
+                  id="phone"
+                  type="tel"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  placeholder=""
+                  autoComplete="tel"
+                  required
+                  maxLength={20}
+                  className="w-full rounded-2xl border-2 border-gray-200 bg-white px-5 py-4 text-base text-gray-900 outline-none transition-all duration-300 focus:border-orange-400 focus:ring-4 focus:ring-orange-100"
+                />
+              </div>
+
+              {/* UserType */}
+              <div>
+                <label
+                  htmlFor="userType"
+                  className="mb-3 block text-lg font-semibold text-[#252525]"
+                >
+                  I am a <span className="text-[#ff5733">*</span>
+                </label>
+
+                <select
+                  id="userType"
+                  name="userType"
+                  value={formData.userType}
+                  onChange={handleChange}
+                  required
+                  className="w-full rounded-2xl border-2 border-gray-200 bg-white px-5 py-4 text-base text-gray-900 outline-none transition-all duration-300 focus:border-orange-400 focus:ring-4 focus:ring-orange-100"
+                >
+                  <option value="" disabled>
+                    Select your role
+                  </option>
+
+                  <option value="Brand">Brand</option>
+                  <option value="Influencer">Influencer</option>
+                </select>
+              </div>
+              <div>
+                <label
+                  htmlFor="subject"
+                  className="mb-3 block text-lg font-semibold text-[#252525]"
+                >
+                  Subject <span className="text-[#ff5733">*</span>
+                </label>
+
+                <input
+                  id="subject"
+                  type="text"
+                  name="subject"
+                  value={formData.subject}
+                  onChange={handleChange}
+                  placeholder=""
+                  required
+                  maxLength={150}
+                  className="w-full rounded-2xl border-2 border-gray-200 bg-white px-5 py-4 text-base text-gray-900 outline-none transition-all duration-300 focus:border-orange-400 focus:ring-4 focus:ring-orange-100"
+                />
+              </div>
+            </div>
+
+            {/* Message */}
+            <div className="mt-8">
+              <label
+                htmlFor="message"
+                className="mb-3 block text-lg font-semibold text-[#252525]"
+              >
+                Message <span className="text-[#ff5733">*</span>
+              </label>
+
+              <textarea
+                id="message"
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
+                placeholder=""
+                rows={6}
+                required
+                maxLength={5000}
+                className="w-full resize-none rounded-2xl border-2 border-gray-200 bg-white px-5 py-4 text-base text-gray-900 outline-none transition-all duration-300 focus:border-orange-400 focus:ring-4 focus:ring-orange-100"
+              />
+            </div>
+
+            {/* Submit Button */}
+            <div className="mt-8">
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="mt-8 flex w-full items-center justify-center gap-3 rounded-full bg-orange-500 px-7 py-4 text-sm font-bold text-white transition-all duration-300 hover:bg-orange-600 disabled:cursor-not-allowed disabled:opacity-60 sm:w-fit"
+                className="group flex items-center justify-center gap-3 rounded-full bg-gradient-to-r from-orange-400 to-[#ff5733] px-9 py-4 text-base font-bold text-white shadow-lg shadow-orange-500/20 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-orange-500/30 disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {isSubmitting ? "Sending..." : "Send Message"}
 
-                {!isSubmitting && <ArrowUpRight size={19} />}
+                {!isSubmitting && (
+                  <ArrowUpRight
+                    size={20}
+                    className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
+                  />
+                )}
               </button>
-            </form>
-          </motion.div>
-        </div>
+            </div>
+          </form>
+        </motion.div>
       </div>
     </section>
   );

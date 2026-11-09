@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import {
-  ArrowUpRight,
+  ArrowRight,
   Lightbulb,
   TrendingUp,
   Users,
@@ -42,101 +42,90 @@ const Services = () => {
   return (
     <section
       id="services"
-      className="bg-[#111111] px-6 py-24 text-white md:px-12 md:py-32"
+      className="relative overflow-hidden bg-white px-5 py-20 sm:px-8 md:px-12 md:py-28"
     >
-      <div className="mx-auto max-w-[1440px]">
+      <div className="mx-auto max-w-[1380px]">
         {/* Section Heading */}
-        <div className="mb-16 flex flex-col justify-between gap-8 md:flex-row md:items-end">
-          <div>
-            <p className="mb-5 flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.25em] text-orange-500">
-              <span className="h-2 w-2 rounded-full bg-orange-500"></span>
-              What We Do
-            </p>
-
-            <h2 className="text-5xl font-black leading-none tracking-tighter sm:text-6xl md:text-8xl">
-              OUR
-              <br />
-              <span className="text-orange-500">SERVICES.</span>
-            </h2>
-          </div>
-
-          <p className="max-w-sm text-base leading-7 text-gray-400">
-            We combine creativity, strategy and technology to create experiences
-            that help brands grow and make a lasting impact.
+        <motion.div
+          initial={{ opacity: 0, y: 25 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="mb-16 text-center"
+        >
+          <p className="mb-3 text-sm font-semibold uppercase tracking-wider text-orange-500">
+            Our Services
           </p>
-        </div>
 
-        {/* Service Cards */}
-        <div className="grid gap-4 sm:grid-cols-2">
+          <h2 className="text-3xl font-black tracking-tight text-[#111827] sm:text-4xl md:text-5xl">
+            Empowering Brands with Smart Strategies
+          </h2>
+
+          {/* Orange Divider */}
+          <div className="mx-auto mt-5 h-1 w-24 rounded-full bg-gradient-to-r from-orange-400 to-[#ff5733]" />
+        </motion.div>
+
+        {/* Services Grid */}
+        <div className="grid items-center gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
           {services.map((service, index) => {
             const Icon = service.icon;
 
             return (
-              <motion.div
+              <motion.article
                 key={service.id}
-                initial={{ opacity: 0, y: 40 }}
+                initial={{ opacity: 0, y: 35 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                viewport={{ once: true, amount: 0.2 }}
                 transition={{
                   duration: 0.6,
-                  delay: index * 0.15,
+                  delay: index * 0.12,
                 }}
                 whileHover={{ y: -8 }}
-                className="group relative flex min-h-[340px] flex-col justify-between overflow-hidden rounded-3xl border border-white/10 bg-[#1b1b1b] p-8 transition-colors duration-300 hover:border-orange-500/50 hover:bg-[#222222] md:p-10"
+                className={`
+                  group relative flex min-h-[350px] flex-col
+                  items-center justify-center
+                  rounded-[24px] border border-gray-200
+                  bg-white px-7 py-9 text-center
+                  shadow-[0_4px_8px_rgba(0,0,0,0.08)]
+                  transition-all duration-300
+                  hover:border-orange-200
+                  hover:shadow-[0_15px_35px_rgba(255,110,50,0.12)]
+                  ${index === 1 ? "lg:min-h-[400px]" : ""}
+                `}
               >
-                {/* Card Top */}
-                <div className="flex items-center justify-between">
-                  <span className="text-sm font-semibold text-gray-500">
-                    / {service.id}
-                  </span>
-
+                {/* Icon Container */}
+                <div className="mb-7 flex h-[72px] w-[72px] items-center justify-center rounded-2xl border border-gray-100 bg-white shadow-sm transition-all duration-300 group-hover:border-orange-100 group-hover:bg-orange-50">
                   <Icon
                     size={34}
-                    strokeWidth={1.5}
-                    className="text-orange-500 transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110"
+                    strokeWidth={1.8}
+                    className="text-orange-500 transition-transform duration-300 group-hover:scale-110"
                   />
                 </div>
 
-                {/* Card Content */}
-                <div className="mt-12">
-                  <h3 className="mb-4 text-3xl font-bold tracking-tight md:text-4xl">
-                    {service.title}
-                  </h3>
+                {/* Service Title */}
+                <h3 className="mb-4 text-xl font-bold tracking-tight text-[#111827] sm:text-2xl">
+                  {service.title}
+                </h3>
 
-                  <p className="max-w-md text-sm leading-7 text-gray-400 md:text-base">
-                    {service.description}
-                  </p>
-                </div>
+                {/* Description */}
+                <p className="max-w-[340px] text-sm leading-7 text-gray-600 sm:text-base">
+                  {service.description}
+                </p>
 
-                {/* Explore Button */}
-                <div className="mt-8 flex items-center justify-between border-t border-white/10 pt-5">
-                  <span className="text-xs font-semibold uppercase tracking-widest text-gray-400 transition-colors group-hover:text-orange-500">
-                    Explore Service
-                  </span>
-
-                  <ArrowUpRight
-                    size={22}
-                    className="text-white transition-all duration-300 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-orange-500"
+                {/* Learn More */}
+                <a
+                  href="#contact"
+                  className="group/link mt-7 inline-flex items-center gap-2 text-base font-medium text-orange-500 transition-all duration-300 hover:text-[#ff5733]"
+                >
+                  Learn More
+                  <ArrowRight
+                    size={19}
+                    className="transition-transform duration-300 group-hover/link:translate-x-2"
                   />
-                </div>
-              </motion.div>
+                </a>
+              </motion.article>
             );
           })}
-        </div>
-
-        {/* Bottom Text */}
-        <div className="mt-16 flex flex-col justify-between gap-5 border-t border-white/10 pt-8 sm:flex-row sm:items-center">
-          <p className="text-sm text-gray-500">
-            GOOD IDEAS. GREAT EXECUTION. REAL IMPACT.
-          </p>
-
-          <a
-            href="#contact"
-            className="flex w-fit items-center gap-2 text-sm font-semibold text-orange-500 transition-all hover:gap-4"
-          >
-            Have a project in mind?
-            <ArrowUpRight size={18} />
-          </a>
         </div>
       </div>
     </section>
