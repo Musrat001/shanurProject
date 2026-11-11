@@ -30,7 +30,7 @@ const Navbar = () => {
           <img
             src="/logo.png"
             alt="Tanveer Digital Hub"
-            className=" h-12 w-20 object-contain rounded-2xl sm:h-14 sm:w-24"
+            className="  object-cover rounded-2xl sm:h-14 sm:w-24"
           />
         </a>
 
